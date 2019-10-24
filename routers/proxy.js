@@ -66,8 +66,18 @@ router.post('/proxy*', async (ctx, next) => {
             return;
         }
         console.log(fields); //{ name: base64字符串 }
+        const tarHost = ctx.params[0];
+        let data = new FormData();
+        Object.keys(fields).map((v, k) => {
+            data.append(v, fields[v]);
+        })
+        data = await axios.post(`${config.host}${tarHost}`, data);
+        ctx.body = data.data;
+        console.log("请求地址为：", config.host + tarHost);
+        console.log("请求返回的数据为：", data.data);
+
     });
-    ctx.body = "end"
+
 
 })
 
