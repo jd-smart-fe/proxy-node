@@ -92,7 +92,7 @@ router.post('/proxyFormdata*', async (ctx, next) => {
         console.log(fields); //{ name: base64字符串 }
         const tarHost = ctx.params[0];
         let data = new FormData();
-        Object.keys(fields).map((v, k) => {
+        Object.keys(JSON.parse(fields)).map((v, k) => {
             data.append(v, fields[v]);
         })
         data = await axios.post(`${config.host}${tarHost}`, data);
