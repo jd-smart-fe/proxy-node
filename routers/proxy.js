@@ -71,4 +71,17 @@ router.post('/proxy*', async (ctx, next) => {
 
 })
 
+router.post('/proxy*', async (ctx, next) => {
+    var form = new formidable.IncomingForm();
+    form.parse(ctx.req, async function (err, fields, files) {
+        if (err) {
+            throw err;
+            return;
+        }
+        console.log(fields); //{ name: base64字符串 }
+    });
+    ctx.body = "end"
+
+})
+
 module.exports = router;
